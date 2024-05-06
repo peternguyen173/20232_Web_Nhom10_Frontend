@@ -64,10 +64,6 @@ const Navbar = () => {
     }
 
     const checkLogin = async () => {
-        // let authToken = await getCookie('authToken')
-        // let refreshToken = await getCookie('refreshToken')
-
-        // console.log(authToken, refreshToken)
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/checklogin`, {
             method: 'GET',
             headers: {
