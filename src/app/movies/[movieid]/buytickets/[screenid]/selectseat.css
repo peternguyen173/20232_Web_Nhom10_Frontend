@@ -1,0 +1,92 @@
+.selectseatpage .head {
+    background-color: var(--col2);
+    padding: 10px;
+}
+
+.selectseatpage {
+    background-color: rgb(228, 228, 228);
+    min-height: 100vh;
+    width: 100%;
+}
+
+.selectseatpage .s1 {
+    background-color: white;
+}
+
+.selectseatpage .head h1 {
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+
+.selectseatpage .head h3 {
+    color: gray;
+    font-size: 13px;
+    font-weight: 600;
+
+    border: 1px solid gray;
+    padding: 5px 20px;
+    border-radius: 25px;
+    width: fit-content;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* SEATS */
+/* Style for seat type */
+.selectseat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+}
+
+.selectseat .indicators {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px;
+}
+
+.selectseat .indicators div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.selectseat .indicators div span {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    padding: 0px;
+    margin: 0px;
+}
+
+.selectseat .indicators div p {
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    color: gray;
+    padding: 0px;
+    margin: 0px;
+}
