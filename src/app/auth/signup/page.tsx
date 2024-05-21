@@ -102,9 +102,9 @@ export default function Signup() {
                         autoClose: 2000
                     })
 
-                    if (typeof window !== 'undefined') {
-                        window.location.href = "/auth/signin"
-                    }
+                    // if (typeof window !== 'undefined') {
+                    //     window.location.href = "/auth/signin"
+                    // }
                     setFormData(
                         {
                             name: '',
