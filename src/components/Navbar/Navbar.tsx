@@ -50,6 +50,7 @@ const Navbar: React.FC = () => {
         }
     };
    
+    
     useEffect(() => {
         const socket = io("http://localhost:8000"); // Connect to Socket.IO server
         socket.on('connect', () => {
@@ -164,7 +165,7 @@ const Navbar: React.FC = () => {
             });
             const response = await res.json();
             const fetchedNotifications = response.data;
-            setNotifications(fetchedNotifications.slice(0, 5)); // Get the latest 10 notifications
+            setNotifications(fetchedNotifications.slice(0, 5)); // Get the latest 5 notifications
             const unreadCount = fetchedNotifications.filter((noti: Notification) => !noti.isRead).length;
             setUnreadNotifications(unreadCount);
         } catch (error) {
@@ -256,13 +257,15 @@ const Navbar: React.FC = () => {
     <div className="notifications-dropdown">
         {notifications.length > 0 ? (
             notifications.map((notification, index) => (
+                <Link href="/bookingdata">
                 <div 
                     key={index} 
                     className={`notification-item ${notification.isRead ? 'read' : 'unread'}`}
                     onClick={() => handleNotificationItemClick(notification._id)}
                 >
-                    {notification.message} - {new Date(notification.timestamp).toLocaleString()}
+                    {notification.message}
                 </div>
+            </Link>
             ))
         ) : (
             <div className="notification-item">No notifications</div>
