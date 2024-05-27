@@ -27,6 +27,63 @@ const Navbar: React.FC = () => {
     const [showNotifications, setShowNotifications] = useState<boolean>(false);
     const [unreadNotifications, setUnreadNotifications] = useState(0);
     const [shouldReload, setShouldReload] = useState(false);
+
+    const [googleUser, setGoogleUser] = React.useState<any>(null)
+
+    const getGoogleUser = async () => {
+
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/login/success`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+        })
+            .then((res) => {
+              
+                return res.json();
+            })
+            .then((response) => {
+                console.log(response)
+                setGoogleUser(response.data)
+                
+            })
+            .catch((error) => {
+                console.log(error)
+                console.log("Hiiiiiiiiiiiiiii")
+            })
+    }
+
+    const handleGoolgeLogout = async () => {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/goolelogout`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((response) => {
+                console.log(response)
+                if (response.ok) {
+                    if (typeof window !== 'undefined') {
+                        window.location.href = "/auth/signin"
+                    }
+                }
+
+            })
+            .catch((error) => {
+                console.log(error)
+                if (typeof window !== 'undefined') {
+                    window.location.href = "/auth/signin"
+                }
+            })
+
+      };
+
+
     const getuser = async () => {
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/getuser`, {
@@ -176,6 +233,7 @@ const Navbar: React.FC = () => {
     useEffect(() => {
         checkLogin();
         getuser();
+        getGoogleUser();
         fetchNotifications();
     }, [showNotifications]);
 
@@ -274,12 +332,35 @@ const Navbar: React.FC = () => {
 )}
                         <button className='theme_btn1 linkstylenone' style={{ cursor: 'pointer' }} onClick={handleLogout}> Đăng xuất</button>
                     </div>
-                ) : (
-                    <div>
-                        <a className="q" style={{ cursor: 'pointer' }} href="/promotion">Tin tức, ưu đãi</a>
-                        <Link href="/auth/signin" className='theme_btn1 linkstylenone'>Đăng nhập</Link>
-                    </div>
-                )}
+                ) : 
+                
+                
+                (
+                    <>
+                     
+                      { googleUser ? (
+                        <>
+                        <div className="user-info">
+                         <a className="q" style={{ cursor: 'pointer' }} href="/promotion">Tin tức, ưu đãi</a>
+                        <div className='fd'><BiUserCircle className='theme_icon1' /></div>
+                        <a href='/profile'>Xin chào, {googleUser.displayName}! </a>
+                    
+                        <button className='theme_btn1 linkstylenone' style={{ cursor: 'pointer' }} onClick={handleGoolgeLogout}>Đăng xuất</button>
+                        </div>
+                      </>
+                ) : 
+                (
+                    <div className="user-info">
+                    <a className="q" style={{ cursor: 'pointer' }} href="/promotion">Tin tức, ưu đãi</a>
+                    <Link href="/auth/signin" className='theme_btn1 linkstylenone'>
+
+                        Đăng nhập
+                    </Link>
+                   </div>
+                      )}
+                    </>
+                  )}
+
             </div>
         </nav>
     );

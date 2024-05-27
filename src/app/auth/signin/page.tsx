@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 import Navbar from '@/components/Navbar/Navbar';
-import '../auth.css';
+import './auth.css';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import logo from '@/assets/logo.png';
@@ -28,9 +28,9 @@ export default function Signin() {
         });
     };
 
-    // const handleGoogleSubmit = () =>{
-    //     window.open(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/google/callback`,"_self");
-    // }
+    const handleGoogleSubmit = () =>{
+        window.open(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/google`,"_self");
+    }
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -110,14 +110,8 @@ export default function Signin() {
             .then((response) => {
                 console.log('check login res ', response)
 
-
-
                 if (response.ok) {
-                    // toast(response.message, {
-                    //     type: 'success',
-                    //     position: 'top-right',
-                    //     autoClose: 2000
-                    // })
+            
                     if (typeof window !== 'undefined') {
                         window.location.href = "/"
                     }
@@ -149,12 +143,15 @@ export default function Signin() {
                         style={{
                             display: 'flex',
                             flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center'
                         }}
                         onSubmit={handleSubmit}
                     >
                         <div className="forminput_cont">
-                            <label>Email</label>
-                            <input
+                            <div><label>Email</label></div> 
+                            <div><input
+                                className='input_field'
                                 type="text"
                                 placeholder="Nhập email"
                                 name="email"
@@ -162,10 +159,12 @@ export default function Signin() {
                                 onChange={handleChange}
                             />
                             {errors.email && <span className="formerror">{errors.email}</span>}
+                            </div>
                         </div>
                         <div className="forminput_cont">
-                            <label>Mật khẩu</label>
-                            <input
+                            <div><label>Mật khẩu</label></div> 
+                            <div> <input
+                                className='input_field'
                                 type="password"
                                 placeholder="Nhập mật khẩu"
                                 name="password"
@@ -175,17 +174,21 @@ export default function Signin() {
                             {errors.password && (
                                 <span className="formerror">{errors.password}</span>
                             )}
+                            </div> 
                         </div>
 
                         <button type="submit" className="main_button">
-                            Đăng nhập
+                            ĐĂNG NHẬP
+                        </button>
+                        <button type="submit" className="main_button"  onClick={handleGoogleSubmit}>
+                          <span>  ĐĂNG NHẬP VỚI GOOGLE </span>
                         </button>
 
                         <p className="authlink">
                             Bạn chưa có tài khoản? <Link href="/auth/signup">Đăng ký</Link>
                         </p>
                     </form>
-
+                   
                 </div>
             </div>
         </div>

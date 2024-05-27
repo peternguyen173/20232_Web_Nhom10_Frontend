@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 import Navbar from '@/components/Navbar/Navbar';
-import '../auth.css';
+import './auth.css';
 import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
 import logo from '@/assets/logo.png';
@@ -133,8 +133,8 @@ export default function Signup() {
             })
     }
     return (
-        <div className='authout'>
-            <div className='authin'>
+        <div className='authout-sigin'>
+            <div className='authin-sigin'>
                 <div className="left">
                     <Image src={logo} alt="" className='img' />
                 </div>
@@ -143,12 +143,14 @@ export default function Signup() {
                         style={{
                             display: 'flex',
                             flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center'
                         }}
                         onSubmit={handleSubmit}
                     >
                         <div className="forminput_cont">
-                            <label>Tên</label>
-                            <input
+                            <div><label>Tên</label></div>
+                            <div><input
                                 type="text"
                                 placeholder="Tên"
                                 name="name"
@@ -156,20 +158,22 @@ export default function Signup() {
                                 onChange={handleChange}
                             />
                             {errors.name && <span className="formerror">{errors.name}</span>}
+                            </div>
                         </div>
                         <div className="forminput_cont">
-                            <label>Số điện thoại</label>
-                            <input
+                            <div><label>Số điện thoại</label></div>
+                            <div><input
                                 type="number"
                                 placeholder="Số điện thoại"
                                 name="phonenumber"
                                 value={formData.phonenumber}
                                 onChange={handleChange}
                             />
+                            </div>
                         </div>
                         <div className="forminput_cont">
-                            <label>Email</label>
-                            <input
+                            <div> <label>Email</label></div>
+                            <div><input
                                 type="text"
                                 placeholder="Email"
                                 name="email"
@@ -177,10 +181,11 @@ export default function Signup() {
                                 onChange={handleChange}
                             />
                             {errors.email && <span className="formerror">{errors.email}</span>}
+                            </div>
                         </div>
                         <div className="forminput_cont">
-                            <label>Mật khẩu</label>
-                            <input
+                            <div><label>Mật khẩu</label></div>
+                            <div><input
                                 type="password"
                                 placeholder="Mật khẩu"
                                 name="password"
@@ -190,10 +195,11 @@ export default function Signup() {
                             {errors.password && (
                                 <span className="formerror">{errors.password}</span>
                             )}
+                            </div>
                         </div>
                         <div className="forminput_cont">
-                            <label>Xác nhận mật khẩu</label>
-                            <input
+                            <div><label>Xác nhận mật khẩu</label></div>
+                            <div><input
                                 type="password"
                                 placeholder="Xác nhận mật khẩu"
                                 name="confirmPassword"
@@ -203,10 +209,11 @@ export default function Signup() {
                             {errors.confirmPassword && (
                                 <span className="formerror">{errors.confirmPassword}</span>
                             )}
+                            </div>
                         </div>
                         <div className="forminput_cont">
-                            <label>Ngày sinh</label>
-                            <input
+                            <div><label>Ngày sinh</label></div>
+                            <div><input
                                 type="date"
                                 placeholder="Ngày sinh"
                                 name="dob"
@@ -214,11 +221,14 @@ export default function Signup() {
                                 onChange={handleChange}
                             />
                             {errors.name && <span className="formerror">{errors.name}</span>}
+                            </div>
                         </div>
-                        <div className="forminput_cont">
-                            <label>Giới tính</label>
+                        <div className="forminput_cont forminput_cont-sex">
+                            <div> <label>Giới tính</label></div>
+                            <div>
                             <div className="checkbox-container">
-                                <label className="checkbox-label">
+                                <div className="checkbox-label">
+                                    <label>
                                     <input
                                         type="checkbox"
                                         name="gender"
@@ -227,7 +237,9 @@ export default function Signup() {
                                         onChange={handleChange}
                                     /> Nam
                                 </label>
-                                <label className="checkbox-label">
+                                </div>
+                                <div className="checkbox-label checkbox-label-right ">
+                                <label >
                                     <input
                                         type="checkbox"
                                         name="gender"
@@ -236,8 +248,11 @@ export default function Signup() {
                                         onChange={handleChange}
                                     /> Nữ
                                 </label>
-                            </div>
+                                </div>
+                                </div>
+                            
                             {errors.gender && <span className="formerror">{errors.gender}</span>}
+                            </div>
                         </div>
 
 

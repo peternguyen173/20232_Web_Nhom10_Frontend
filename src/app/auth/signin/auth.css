@@ -4,7 +4,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    padding-top: 250px;
+    max-height: 150px;
+    height: 100%;
   }
   
   .authin {
@@ -12,7 +14,10 @@
     background-color: #f2f2f2;
     border: 1px solid #ccc;
     border-radius: 5px;
-    max-width: 400px;
+    max-width: 800px;
+    max-height: 400px;
+    height: 100%;
+    width: 100%;
     padding: 20px;
   }
   
@@ -25,11 +30,11 @@
   
   .authin .right {
     flex: 2;
-    padding-left: 20px;
+     justify-content: center;
   }
   
   .authin .img {
-    width: 100px;
+    width: 200px;
     height: 100px;
   }
   
@@ -39,7 +44,8 @@
   }
   
   .authin .forminput_cont {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    
   }
   
   .authin label {
@@ -50,7 +56,12 @@
   .authin input[type="password"],
   .authin input[type="number"],
   .authin input[type="date"] {
-    width: 100%;
+    /* max-width: 500px; */
+    padding: 0;
+    margin: 0px;
+    width: 480px;
+    /* width: ; */
+    margin-top: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -61,29 +72,26 @@
     font-size: 14px;
   }
   
-  .authin .checkbox-container {
-    display: flex;
-    margin-top: 5px;
-  }
-  
-  .authin .checkbox-label {
-    margin-right: 10px;
-  }
-  
+
+
   .authin .main_button {
+    /* width: 90%; */
     display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #4caf50;
+    width: 500px;
+    height: 45px;
+    padding: 0px;
+    background-color: #B84949;
     color: #fff;
     border: none;
-    border-radius: 3px;
+    border-radius: 10px;
     cursor: pointer;
+    margin: 0px;
     margin-top: 10px;
+    font-size: 20px bold;
   }
   
   .authin .main_button:hover {
-    background-color: #45a049;
+    background-color: #C13939;
   }
   
   .authlink {
@@ -92,5 +100,7 @@
   }
   
   .authlink a {
-    color: #4caf50;
+    color: #C13939;
   }
+
+ 
