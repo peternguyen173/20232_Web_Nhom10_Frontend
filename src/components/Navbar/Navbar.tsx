@@ -20,7 +20,7 @@ interface Notification {
 const Navbar: React.FC = () => {
     const [showLocationPopup, setShowLocationPopup] = useState<boolean>(false);
     const [user, setUser] = useState<any>(null);
-    const [userID, setUserID] = useState<any>(null);
+    const [userId, setUserId] = useState<any>(null);
 
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -94,10 +94,11 @@ const Navbar: React.FC = () => {
                 credentials: 'include'
             });
             const response = await res.json();
+            console.log("ALOO");
 
             console.log(response.data);
             setUser(response.data);
-            setUserID(response.data.userId);
+            setUserId(response.data._id);
             console.log("11111");
             console.log(user);
 
@@ -116,6 +117,9 @@ const Navbar: React.FC = () => {
 
         socket.on('bookingConfirmed', (data: { userId: string, message: string }) => {
             console.log('New notification received:', data.message); 
+            console.log(userId);
+            console.log(data.userId);
+
             const newNotification: Notification = { 
                 _id: '', // Phải điền giá trị cho _id
                 userId: data.userId, 
@@ -125,7 +129,7 @@ const Navbar: React.FC = () => {
             };
           
             // Kiểm tra xem thông báo có userId của người dùng hiện tại hay không
-            if (newNotification.userId === user.userId) {
+            if (newNotification.userId === userId) {
                 setShouldReload(true); // Đánh dấu để reload component
                 // Cập nhật notifications với một mảng mới
                 setNotifications(prevNotifications => [newNotification, ...prevNotifications]);

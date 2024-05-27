@@ -114,10 +114,12 @@ const SelectSeatPage = () => {
                 s.rowname !== seat.rowname ||
                 s.seat_id !== seat.seat_id
             )))
+            calculateTotalPrice();
         }
 
         else {
             setSelectedSeats([...selectedSeats, seat])
+            
         }
         console.log(selectedSeats)
     }
@@ -347,7 +349,25 @@ const SelectSeatPage = () => {
         .catch(error => console.error('Error creating notification:', error));
     };
     
-
+    const updateFinalPrice = () => {
+        // Calculate base price of selected seats
+        const basePrice = selectedSeats.reduce((acc, seat) => acc + seat.price, 0);
+    
+        // Calculate total price by adding base price and additional options (burn, water)
+        let totalPrice = basePrice + additionalPrice;
+    
+        // Apply discount if available
+        totalPrice -= discount;
+    
+        // Set final price
+        setFinalPrice(totalPrice);
+    };
+    
+    // Call the updateFinalPrice function whenever selectedSeats or additionalPrice changes
+    useEffect(() => {
+        updateFinalPrice();
+    }, [selectedSeats, additionalPrice]);
+    
 
    
 
