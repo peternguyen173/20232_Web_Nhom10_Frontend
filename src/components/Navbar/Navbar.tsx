@@ -233,6 +233,7 @@ const Navbar: React.FC = () => {
     useEffect(() => {
         checkLogin();
         getuser();
+        getGoogleUser();
         fetchNotifications();
     }, [showNotifications]);
 
