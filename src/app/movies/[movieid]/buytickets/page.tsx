@@ -94,6 +94,7 @@ const BuyTicketsPage = () => {
 
     React.useEffect(() => {
         getTheatres(selectedDate)
+        console.log(selectedDate)
     }, [selectedDate])
 
 
@@ -120,6 +121,9 @@ const BuyTicketsPage = () => {
     // }
 
 
+    React.useEffect(() => {
+        getTheatres(selectedDate.toISOString().split('T')[0]); // Format selectedDate
+      }, [selectedDate]);
 
     return (
         <>
@@ -147,20 +151,23 @@ const BuyTicketsPage = () => {
                                         <div className='a'>
                                             <h2>{uniqueScreen.name}</h2>
                                             <h3>{uniqueScreen.screenType}</h3>
-                                            <div className='showtimes'>
-                                                {uniqueScreen.movieSchedules.map((schedule: any, scheduleIndex: any) => (
-                                                    schedule.movieId === movieid && (
-                                                        <div className='showtime' key={scheduleIndex}>
-                                                            <p>Thời gian chiếu: {schedule.showTime}
-                                                            </p>
-                                                            {/* Kiểm tra nếu schedule.movieId trùng với movieId thì hiển thị Link */}
-                                                            <Link href={`${pathname}/${uniqueScreen._id}?time=${schedule.showTime}&date=${selectedDate}`} className='theme_btn1 linkstylenone'>Đặt vé</Link>
-                                                            {/* Thêm nút hoặc hành động để chọn giờ chiếu */}
-                                                        </div>
-                                                    )
-                                                ))}
-
-                                            </div>
+                                             <div className='showtimes'>
+                    {/* Filter showtimes by selectedDate */}
+                    {uniqueScreen.movieSchedules.filter((schedule: any) => {
+                      const showDate = new Date(schedule.showDate);
+                      return showDate.toDateString() === selectedDate.toDateString() && schedule.movieId === movieid;
+                    }).map((filteredSchedule: any, scheduleIndex: any) => (
+                      <div className='showtime' key={scheduleIndex}>
+                        <p>Thời gian chiếu: {filteredSchedule.showTime}</p>
+                        <Link 
+                          href={`${pathname}/${uniqueScreen._id}?time=${filteredSchedule.showTime}&date=${selectedDate}`} 
+                          className='theme_btn1 linkstylenone'
+                        >
+                          Đặt vé
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
                                         </div>
                                     </div>
                                 );
