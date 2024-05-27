@@ -105,7 +105,7 @@ const MoviePage = () => {
 
     const handleRating = () => {
         if (!isLoggedIn) {
-            window.location.href = '/login';
+            window.location.href = '/auth/signin';
             return;
         }
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/movie/rating`, {
