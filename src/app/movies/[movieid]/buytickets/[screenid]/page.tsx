@@ -18,6 +18,7 @@ const SelectSeatPage = () => {
 
     const { movieid, cityname, screenid } = params
     console.log(movieid, cityname, screenid, showtime)
+    const [bookingConfirmed, setBookingConfirmed] = useState(false); // State để đánh dấu khi đặt vé thành công
 
 
 
@@ -192,108 +193,6 @@ const SelectSeatPage = () => {
         }
     };
 
-
-
-    // const generateSeatLayout = () => {
-    //     if (screen && selectedTime) {
-    //         const currentSchedule = screen.movieSchedules.find();
-
-    //         if (currentSchedule) {
-    //             const notAvailableSeats = currentSchedule.notAvailableSeats;
-
-    //             return (
-    //                 <div>
-    //                     {screen.rows.map((row: any, rowIndex: any) => (
-    //                         <div className="seat-row" key={rowIndex}>
-    //                             <p className="rowname">{row}</p>
-    //                             <div className="seat-cols">
-    //                                 {screen.screenType === 'Standard' && (
-    //                                     row.map((col: any, colIndex: any) => (
-    //                                         <div className="seat-col" key={colIndex}>
-    //                                             {col.seats.map((seat: any, seatIndex: any) => {
-    //                                                 const seatId = `${row}${colIndex}${seatIndex}`;
-
-    //                                                 const isNotAvailable = notAvailableSeats.some(
-    //                                                     (notAvailableSeat: any) => (
-    //                                                         notAvailableSeat.row === row &&
-    //                                                         notAvailableSeat.col === colIndex &&
-    //                                                         notAvailableSeat.seat_id === seatId
-    //                                                     )
-    //                                                 );
-
-    //                                                 return (
-    //                                                     <div
-    //                                                         className={`seat-cell ${isNotAvailable ? 'not-available' : 'available'}`}
-    //                                                         key={seatIndex}
-    //                                                         onClick={() => selectdeselectseat({ row, col: colIndex, seat_id: seatId, price: seat.price })}
-    //                                                     >
-    //                                                         {seatIndex + 1}
-    //                                                     </div>
-    //                                                 );
-    //                                             })}
-    //                                         </div>
-    //                                     ))
-    //                                 )}
-    //                                 {/* Add other screen types handling here */}
-    //                             </div>
-    //                         </div>
-    //                     ))}
-    //                 </div>
-    //             );
-    //         }
-    //     }
-    //     return null; // Return null or alternative content if conditions are not met
-    // };
-    // const totalPrice = async () => {
-    //     const basePrice = selectedSeats.reduce((acc, seat) => acc + seat.price, 0);
-    //     let totalPrice = basePrice;
-    //     let discountAmount = 0;
-
-    //     try {
-    //         const promotionsResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/movie/getpromotions`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             credentials: 'include'
-    //         });
-
-    //         const promotionsData = await promotionsResponse.json();
-
-    //         if (promotionsData.ok) {
-    //             const currentDate = new Date();
-    //             const validPromotion = promotionsData.data.find((promotion: any) => {
-    //                 const startDate = new Date(promotion.startDate);
-    //                 const expiryDate = new Date(promotion.expiryDate);
-    //                 return startDate < currentDate && currentDate < expiryDate;
-    //             });
-
-    //             if (validPromotion) {
-    //                 // Áp dụng khuyến mãi validPromotion
-    //                 console.log('Khuyến mãi thỏa mãn điều kiện:', validPromotion);
-    //                 // Gọi hàm xử lý việc áp dụng khuyến mãi ở đây
-    //                 if (validPromotion.type === 'percentage') {
-    //                     // Nếu khuyến mãi là giảm giá theo phần trăm
-    //                     const discountAmount = (validPromotion.discount / 100) * basePrice;
-    //                     totalPrice = basePrice - discountAmount;
-    //                     promo = validPromotion.title;
-    //                 } else if (validPromotion.type === 'fixed') {
-    //                     // Nếu khuyến mãi là giảm giá cố định
-    //                     const totalPriceAfterDiscount = basePrice - validPromotion.discountAmount;
-    //                 } else {
-    //                     console.log('Loại khuyến mãi không được hỗ trợ.');
-    //                 }
-
-    //             }
-    //         } else {
-    //             console.log('Lỗi khi lấy danh sách khuyến mãi từ máy chủ.');
-    //         }
-    //     } catch (error) {
-    //         console.error('Lỗi:', error);
-    //     }
-
-    //     return totalPrice; // Return totalPrice or an appropriate value here
-    // };
     // Xử lý sự kiện khi giá trị số lượng bỏng thay đổi
     const handleBurnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const quantity = parseInt(e.target.value);
@@ -397,19 +296,7 @@ const SelectSeatPage = () => {
     }, [selectedSeats]);
 
 
-
-
-
     const handleBooking = () => {
-        console.log(selectedSeats)
-        console.log(date)
-        console.log(movieid)
-        console.log(screenid)
-        console.log(123456789)
-        console.log(selectedSeats)
-
-
-
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/movie/bookticket`, {
             method: 'POST',
             headers: {
@@ -428,28 +315,41 @@ const SelectSeatPage = () => {
                 cornquantity: burnQuantity, // Thông tin về bỏng nước
                 waterquantity: waterQuantity // Thông tin về nước
             })
-
         })
-            .then(res => res.json())
-            .then(response => {
-                if (response.ok) {
-                    toast.success('Booking Successful')
-                    console.log(response)
-                    if (typeof window !== 'undefined') {
-                        window.location.href = "/bookingdata"
-                    }
+        .then(res => res.json())
+        .then(response => {
+            if (response.ok) {
+                createNotification('Your booking was successful!');
+                toast.success('Booking Successful');
+                console.log(response);
+                        setBookingConfirmed(true);
+
+                if (typeof window !== 'undefined') {
+                    // window.location.href = "/bookingdata";
                 }
-                else {
-                    console.log(response)
-                }
-            })
-            .catch(err => console.log(err))
+            } else {
+                console.log(response);
+            }
+        })
+        .catch(err => console.log(err));
+    };
+    
+    const createNotification = (message:any) => {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/notifications`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error creating notification:', error));
+    };
+    
 
-    }
-    console.log("b")
 
-    console.log(selectedTime)
-
+   
 
     return (
         <div className='selectseatpage'>

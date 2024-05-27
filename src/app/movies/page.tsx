@@ -41,25 +41,6 @@ const MoviePage = () => {
                 console.log(err)
             })
 
-
-
-
-        // {
-        //     "_id": "65101a2acc5b257e6f2816a5",
-        //     "title": "Jawan",
-        //     "description": "A high-octane action thriller that outlines the emotional journey of a man who is set to rectify the wrongs in society.",
-        //     "portraitImgUrl": "http://res.cloudinary.com/dy4laycuf/image/upload/v1695554088/wbfwtq1nksdazxdrelxa.webp",
-        //     "landscapeImgUrl": "http://res.cloudinary.com/dy4laycuf/image/upload/v1695554090/s3iwjeae4nev6ug3r0et.png",
-        //     "rating": 8,
-        //     "genre": [
-        //         "Action",
-        //         "Thriller"
-        //     ],
-        //     "duration": 130,
-        //     "cast": [],
-        //     "crew": [],
-        //     "__v": 0
-        // }
     }
 
 
@@ -91,24 +72,8 @@ const MoviePage = () => {
                                         <BsFillStarFill className='star' />&nbsp;&nbsp;
                                         {movie.rating}/10
                                     </p>
-                                    {/* <div className='halls_languages'>
-                                <p className='halls'>
-                                    {
-                                        movie.halls.map((hall, index) => {
-                                            return (
-                                                <span key={index}>{hall} </span>
-                                            )
-                                        })
-                                    }
-                                </p>
-                                <p className='languages'>
-                                    {movie.languages.map((language, index) => {
-                                        return (
-                                            <span key={index}>{language} </span>
-                                        )
-                                    })}
-                                </p>
-                            </div> */}
+
+
                                     <p className='duration_type_releasedat'>
                                         <span className='duration'>
                                             {movie.duration}
@@ -117,10 +82,7 @@ const MoviePage = () => {
                                         <span className='type'>
                                             {movie.genre.join(', ')}
                                         </span>
-                                        {/* <span>•</span>
-                                <span className='releasedat'>
-                                    {movie.releasedate}
-                                </span> */}
+                
                                     </p>
                                     <Link
                                         href={`${pathname}/buytickets`}
@@ -231,7 +193,7 @@ const MoviePage = () => {
                             </div>
                         }
                         <div className='line'></div>
-                        <h1>Your might also like</h1>
+                        <h1>Có thể bạn cũng thích</h1>
                         <MovieCarousel />
                     </div>
 
