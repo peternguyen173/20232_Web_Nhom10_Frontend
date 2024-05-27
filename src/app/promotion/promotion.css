@@ -1,0 +1,25 @@
+h1 {
+    padding: 30px;
+    margin-left: 95px;
+
+    padding-bottom: 0;
+}
+
+.promotions-table {
+    margin: 30px;
+    margin-left: 125px;
+
+    border-collapse: collapse;
+    width: 80%;
+}
+
+.promotions-table th,
+.promotions-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.promotions-table th {
+    background-color: #f2f2f2;
+}
